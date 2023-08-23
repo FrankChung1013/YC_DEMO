@@ -1,7 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using YCDemoMVC.DBModel;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+var connectionString = builder.Configuration.GetConnectionString("DBConnectionString");
+builder.Services.AddDbContext<YCDemoContext>(options =>
+{
+    options.UseSqlServer(connectionString, sqlServerOptionsAction:
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure();
+        });
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
