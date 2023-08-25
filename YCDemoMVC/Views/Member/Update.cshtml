@@ -1,0 +1,62 @@
+﻿@model MemberModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+@using (Html.BeginForm("Update", "Member", FormMethod.Post, new {}))
+{
+	<div class="table-title">
+		<div class="row">
+			<div class="col-sm-8">
+				<h2>Edit </h2></div>
+		</div>
+	</div>
+    <table class="table table-striped table-hover table-bordered">
+	<tbody>
+	<tr>
+		<label>Name</label>
+		<td>
+			@Html.TextBox("Name", Model.Name, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>Sex</label>
+		<td>
+			@Html.TextBox("Sex", Model.Sex, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>Birthday</label>
+		<td>
+			@Html.TextBox("Birthday", Model.Birthday, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>IdentityNumber</label>
+		<td>
+			@Html.TextBox("IdentityNumber", Model.IdentityNumber, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>Email</label>
+		<td>
+			@Html.TextBox("Email", Model.Email, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>PhoneNumber</label>
+		<td>
+			@Html.TextBox("PhoneNumber", Model.PhoneNumber, new{})
+		</td>
+	</tr>
+	<tr>
+		<label>Address</label>
+		<td>
+			@Html.TextBox("Address", Model.Address, new{})
+		</td>
+	</tr>
+	</tbody>
+	</table>
+}

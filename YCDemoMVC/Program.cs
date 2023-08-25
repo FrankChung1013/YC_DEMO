@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using YCDemoMVC.DBModel;
+using YCDemoMVC.Interfaces;
+using YCDemoMVC.Repositories;
+using YCDemoMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,9 @@ builder.Services.AddDbContext<YCDemoContext>(options =>
         });
 });
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
 
@@ -36,6 +42,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Member}/{action=Index}/{id?}");
 
 app.Run();

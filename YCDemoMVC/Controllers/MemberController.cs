@@ -1,32 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using YCDemoMVC.Interfaces;
+using YCDemoMVC.Models;
 
 namespace YCDemoMVC.Controllers;
 
 public class MemberController : Controller
 {
-    public MemberController()
+    private readonly IMemberService _memberService;
+
+    public MemberController(IMemberService memberService)
     {
+        _memberService = memberService;
+    }
+
+    public IActionResult Index(MemberIndexViewModel memberIndexViewModel)
+    {
+        var result = _memberService.QueryMembers(memberIndexViewModel);
         
+        return View(result);
     }
 
-    public IActionResult Index(string id)
-    {
-
-        return View();
-    }
-
+    [HttpGet]
     public IActionResult Create()
     {
-        return View();
+        return View(new MemberModel());
     }
 
+    [HttpGet]
     public IActionResult Update(string id)
     {
-        return View();
+        var result = _memberService.QueryMemberById(id);
+
+        return View(result);
     }
 
-    public IActionResult Delete(string id)
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody]MemberModel member)
     {
-        return View();
+
+        return Json(true);
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> Update([FromBody]MemberModel member)
+    {
+        return Json(true);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(string id)
+    {
+        return Json(true);
     }
 }

@@ -16,8 +16,7 @@ namespace YCDemoMVC.DBModel
         {
         }
 
-        public virtual DbSet<Auth> Auths { get; set; } = null!;
-        public virtual DbSet<AuthDetail> AuthDetails { get; set; } = null!;
+        public virtual DbSet<Member> Members { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,31 +29,22 @@ namespace YCDemoMVC.DBModel
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Auth>(entity =>
+            modelBuilder.Entity<Member>(entity =>
             {
-                entity.ToTable("Auth");
+                entity.ToTable("Member");
 
-                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+                entity.Property(e => e.Address).HasMaxLength(100);
+
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
+
+                entity.Property(e => e.Department).HasMaxLength(20);
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<AuthDetail>(entity =>
-            {
-                entity.ToTable("AuthDetail");
-
-                entity.Property(e => e.Address).HasMaxLength(300);
-
-                entity.Property(e => e.Birthday).HasColumnType("datetime");
-
-                entity.Property(e => e.EnglishName)
-                    .HasMaxLength(200)
+                entity.Property(e => e.IdentityNumber)
+                    .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -63,11 +53,9 @@ namespace YCDemoMVC.DBModel
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Sex)
-                    .HasMaxLength(1)
-                    .IsUnicode(false);
+                entity.Property(e => e.School).HasMaxLength(50);
 
-                entity.Property(e => e.SubscriptionNews)
+                entity.Property(e => e.Sex)
                     .HasMaxLength(1)
                     .IsUnicode(false);
             });
