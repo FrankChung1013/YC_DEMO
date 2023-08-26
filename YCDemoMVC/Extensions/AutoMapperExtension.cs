@@ -8,10 +8,11 @@ public class AutoMapperExtension : Profile
 {
     public AutoMapperExtension()
     {
-        CreateMap<Member, MemberModel>().ReverseMap()
-            .ForMember(x => x.Birthday, y => y.Ignore());
+        CreateMap<Member, MemberModel>()
+            .ForMember(x => x.Birthday, y => y.MapFrom(o => o.Birthday.ToString("yyyy-MM-dd")))
+            .ReverseMap();
 
-        CreateMap<MemberModel, Member>().ReverseMap()
-            .ForMember(x => x.Birthday, y => y.Ignore());
+        // CreateMap<MemberModel, Member>().ReverseMap()
+        //     .ForMember(x => x.Birthday, y => y.Ignore());
     }
 }

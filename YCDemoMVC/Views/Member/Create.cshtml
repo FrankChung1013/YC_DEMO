@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-@using (Html.BeginForm("Create", "Member", FormMethod.Post, new {}))
+@using (Html.BeginForm("Create", "Member", FormMethod.Post, new {enctype = "multipart/form-data", id = "FormPage"}))
 {
 	<div class="table-title">
 		<div class="row">
@@ -16,47 +16,112 @@
     <table class="table table-striped table-hover table-bordered">
 	<tbody>
 	<tr>
-		<label>Name</label>
 		<td>
-			@Html.TextBox("Name", Model.Name, new{})
+			<label>Name</label>
+			<p></p>
+			@Html.TextBox("Name", Model.Name, new {})
+			<p></p>
+			<span id="NameError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>Sex</label>
 		<td>
-			@Html.TextBox("Sex", Model.Sex, new{})
+			<label>Sex</label>
+			<p></p>
+			<select class="form-control" asp-items="ViewBag.SexSelectList" id="sex"></select>
+			<p></p>
+			<span id="SexError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>Birthday</label>
 		<td>
-			@Html.TextBox("Birthday", Model.Birthday, new{})
+			<label>Birthday</label>
+			<p></p>
+			@Html.TextBoxFor(model => model.Birthday, "{0:yyyy-MM-dd}", new {@class="form-control", type="date"})
+			@* @Html.TextBox("Birthday", Model.Birthday, new{}) *@
+			<p></p>
+			<span id="BirthdayError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>IdentityNumber</label>
 		<td>
+			<label>IdentityNumber</label>
+			<p></p>
 			@Html.TextBox("IdentityNumber", Model.IdentityNumber, new{})
+			<p></p>
+			<span id="IdentityNumberError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>Email</label>
 		<td>
+			<label>Email</label>
+			<p></p>
 			@Html.TextBox("Email", Model.Email, new{})
+			<p></p>
+			<span id="EmailError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>PhoneNumber</label>
 		<td>
+			<label>PhoneNumber</label>
+			<p></p>
 			@Html.TextBox("PhoneNumber", Model.PhoneNumber, new{})
+			<p></p>
+			<span id="PhoneNumberError" class="text-danger"></span>
 		</td>
 	</tr>
 	<tr>
-		<label>Address</label>
 		<td>
+			<label>Address</label>
+			<p></p>
 			@Html.TextBox("Address", Model.Address, new{})
+			<p></p>
+			<span id="AddressError" class="text-danger"></span>
 		</td>
 	</tr>
+	<button type="button" class="btn-success" id="create">Create</button>
 	</tbody>
 	</table>
 }
+
+<script>
+$(function (){
+	$("#create").click(function (){
+        $(".text-danger").text("");
+		var postValue = getFormData($("#FormPage"));
+		postValue["sex"] = $("#sex").children("option").filter(":selected").val();
+		$.ajax({
+			url: "@Url.Action("Insert")",
+			type: "POST",
+			dataType: "json",
+			data: JSON.stringify(postValue),
+			contentType: "application/json",
+			success: function (data) {
+				if (data){
+					alert("Success");
+					window.location = "@Url.Action("Index")";
+				}else{
+					alert("IdentityNumber、Email or PhoneNumber is repeat.")
+				}
+			},
+			error: function (error){
+				$.each(JSON.parse(error.responseText),  function (key, value){
+					$("#"+key+"Error").text(value);
+				});
+				alert("Fail");
+			}
+		});
+	});
+  
+	function getFormData($form){
+	  var unindexed_array = $form.serializeArray();
+	  var indexed_array = {};
+	
+	  $.map(unindexed_array, function(n, i){
+		  indexed_array[n['name']] = n['value'];
+	  });
+	
+	  return indexed_array;
+	}
+})
+</script>

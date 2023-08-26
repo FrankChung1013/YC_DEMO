@@ -37,8 +37,6 @@ namespace YCDemoMVC.DBModel
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
-                entity.Property(e => e.Department).HasMaxLength(20);
-
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -52,8 +50,6 @@ namespace YCDemoMVC.DBModel
                 entity.Property(e => e.PhoneNumber)
                     .HasMaxLength(10)
                     .IsUnicode(false);
-
-                entity.Property(e => e.School).HasMaxLength(50);
 
                 entity.Property(e => e.Sex)
                     .HasMaxLength(1)

@@ -1,11 +1,10 @@
 ﻿@model YCDemoMVC.Models.MemberIndexViewModel
 
 @{
-    ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-@using (Html.BeginForm("Index", "Member", FormMethod.Post, new {}))
+@using (Html.BeginForm("Index", "Member", FormMethod.Post, new {enctype = "multipart/form-data", id = "FormPage"}))
 {
     <div class="table-title">
 	    <div class="row">
@@ -17,7 +16,7 @@
 				    <i class="material-icons">&#xE8B6;</i>
 				    <input type="text" class="form-control" placeholder="Search&hellip;">
 				    <p></p>
-				    <button class="btn-success">Create</button>
+				    <button type="button" id="create" class="btn-success">Create</button>
 			    </div>
 		    </div>
 	    </div>
@@ -37,23 +36,26 @@
 		</tr>
 	</thead>
 	<tbody>
-	@{ var number = 1;}
+	@{
+		var number = 1;
+	}
 	@if (Model.Members.Any())
 	{
 		foreach (var member in Model.Members)
 		{
+			var showSex = member.Sex == "M" ? "男性" : "女性";
 			<tr>
 				<td>@number</td>
 				<td>@member.Name</td>
-				<td>@member.Sex</td>
+				<td>@showSex</td>
 				<td>@member.Birthday</td>
 				<td>@member.IdentityNumber</td>
 				<td>@member.Email</td>
 				<td>@member.PhoneNumber</td>
 				<td>@member.Address</td>
-				<td>
-					<button class="btn-primary" value="@member.Id">Edit</button>
-					<button class="btn-danger" value="@member.Id">Delete</button>
+				<td nowrap="nowrap">
+					<button type="button" class="btn-primary" id="update" value="@member.Id">Edit</button>
+					<button type="button" class="btn-danger" id="delete" value="@member.Id">Delete</button>
 				</td>
 			</tr>
 			number++;
@@ -62,78 +64,9 @@
 	else
 	{
 		<tr>
-			<td colspan="8">No Data</td>
-			<td nowrap="nowrap">
-				<button class="btn-primary" value="1">Edit</button>
-				<button class="btn-danger" value="1">Delete</button>
-			</td>
+			<td colspan="9">No Data</td>
 		</tr>
 	}
-	@* <tr> *@
-	@* 	<td>1</td> *@
-	@* 	<td>Thomas Hardy</td> *@
-	@* 	<td>89 Chiaroscuro Rd.</td> *@
-	@* 	<td>Portland</td> *@
-	@* 	<td>97219</td> *@
-	@* 	<td>USA</td> *@
-	@* 	<td> *@
-	@* 		<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> *@
-	@* 		<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> *@
-	@* 		<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> *@
-	@* 	</td> *@
-	@* </tr> *@
-	@* <tr> *@
-	@* 	<td>2</td> *@
-	@* 	<td>Maria Anders</td> *@
-	@* 	<td>Obere Str. 57</td> *@
-	@* 	<td>Berlin</td> *@
-	@* 	<td>12209</td> *@
-	@* 	<td>Germany</td> *@
-	@* 	<td> *@
-	@* 		<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> *@
-	@* 		<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> *@
-	@* 		<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> *@
-	@* 	</td> *@
-	@* </tr> *@
-	@* <tr> *@
-	@* 	<td>3</td> *@
-	@* 	<td>Fran Wilson</td> *@
-	@* 	<td>C/ Araquil, 67</td> *@
-	@* 	<td>Madrid</td> *@
-	@* 	<td>28023</td> *@
-	@* 	<td>Spain</td> *@
-	@* 	<td> *@
-	@* 		<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> *@
-	@* 		<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> *@
-	@* 		<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> *@
-	@* 	</td> *@
-	@* </tr> *@
-	@* <tr> *@
-	@* 	<td>4</td> *@
-	@* 	<td>Dominique Perrier</td> *@
-	@* 	<td>25, rue Lauriston</td> *@
-	@* 	<td>Paris</td> *@
-	@* 	<td>75016</td> *@
-	@* 	<td>France</td> *@
-	@* 	<td> *@
-	@* 		<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> *@
-	@* 		<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> *@
-	@* 		<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> *@
-	@* 	</td> *@
-	@* </tr> *@
-	@* <tr> *@
-	@* 	<td>5</td> *@
-	@* 	<td>Martin Blank</td> *@
-	@* 	<td>Via Monte Bianco 34</td> *@
-	@* 	<td>Turin</td> *@
-	@* 	<td>10100</td> *@
-	@* 	<td>Italy</td> *@
-	@* 	<td> *@
-	@* 		<a href="#" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a> *@
-	@* 		<a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a> *@
-	@* 		<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a> *@
-	@* 	</td> *@
-	@* </tr> *@
 	</tbody>
 	</table>
 	<div class="clearfix">
@@ -149,3 +82,36 @@
 	</ul>
 	</div>
 }
+
+<script>
+$(function () {
+	$("#create").click(function (){
+		window.location = "@Url.Action("Create")"
+	})
+	$("#update").click(function (){
+		window.location = "@Url.Action("Edit")?id=" + $(this).val()
+	})
+	// $("#delete").click(function (){
+	// 	window.location = "@Url.Action("Delete")?id=" + $(this).val()
+	// })
+	$("#delete").click(function (){
+		var doDelete = confirm("是否確定刪除?")
+		if (doDelete === false) return;
+		$.ajax({
+			url: "@Url.Action("Delete")?id=" + $(this).val(),
+			type: "DELETE",
+			dataType: "json",
+			contentType: "application/json",
+			success: function (data) {
+				if (data){
+					alert("Success");
+					window.location = "@Url.Action("Index")";
+				}
+			},
+			error: function (error){
+				alert("Fail");
+			}
+		});
+	});
+})
+</script>
