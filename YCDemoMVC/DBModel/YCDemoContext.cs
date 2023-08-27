@@ -37,6 +37,8 @@ namespace YCDemoMVC.DBModel
 
                 entity.Property(e => e.Birthday).HasColumnType("datetime");
 
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -54,6 +56,8 @@ namespace YCDemoMVC.DBModel
                 entity.Property(e => e.Sex)
                     .HasMaxLength(1)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

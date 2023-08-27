@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using YCDemoMVC.Interfaces;
@@ -9,10 +10,12 @@ namespace YCDemoMVC.Controllers;
 public class MemberController : Controller
 {
     private readonly IMemberService _memberService;
+    private readonly ILogger<MemberController> _logger;
 
-    public MemberController(IMemberService memberService)
+    public MemberController(IMemberService memberService, ILogger<MemberController> logger)
     {
         _memberService = memberService;
+        _logger = logger;
     }
 
     public IActionResult Index(MemberIndexViewModel memberIndexViewModel)
@@ -36,6 +39,25 @@ public class MemberController : Controller
         ViewBag.SexSelectList = SexSelectList(member.Sex);
 
         return View(member);
+    }
+    
+    private static List<SelectListItem> SexSelectList(string sex = "")
+    {
+        return new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "男",
+                Value = "M",
+                Selected = sex == "M" || string.IsNullOrWhiteSpace(sex),
+            },
+            new SelectListItem
+            {
+                Text = "女",
+                Value = "F",
+                Selected = sex == "F",
+            },
+        };
     }
 
     [HttpPost]
@@ -62,24 +84,5 @@ public class MemberController : Controller
         var result = _memberService.Delete(id);
 
         return Json(true);
-    }
-    
-    private static List<SelectListItem> SexSelectList(string sex = "")
-    {
-        return new List<SelectListItem>
-        {
-            new SelectListItem
-            {
-                Text = "男",
-                Value = "M",
-                Selected = sex == "M" || string.IsNullOrWhiteSpace(sex),
-            },
-            new SelectListItem
-            {
-                Text = "女",
-                Value = "F",
-                Selected = sex == "F",
-            },
-        };
     }
 }

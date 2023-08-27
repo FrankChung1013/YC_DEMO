@@ -2,22 +2,22 @@
 
 @{
     Layout = "_Layout";
+	var value = Model.GetType().GetProperties().FirstOrDefault(p => p.Name == Model.ConditionList.FirstOrDefault(o => o.Selected)?.Value)?.GetValue(Model)?.ToString() ?? string.Empty;
+	
 }
 
 @using (Html.BeginForm("Index", "Member", FormMethod.Post, new {enctype = "multipart/form-data", id = "FormPage"}))
 {
     <div class="table-title">
 	    <div class="row">
-		    @* <b>Details</b> *@
 		    <div class="col-sm-8">
 			    <h2>Member List</h2></div>
-		    <div class="col-sm-4">
-			    <div class="search-box">
-				    <i class="material-icons">&#xE8B6;</i>
-				    <input type="text" class="form-control" placeholder="Search&hellip;">
-				    <p></p>
-				    <button type="button" id="create" class="btn-success">Create</button>
-			    </div>
+		    <div class="col-sm-4" style="display:inline-block;white-space:nowrap;">
+			    <select class="form-control" asp-items="@Model.ConditionList" id="condition" style="display:inline-block;white-space:nowrap;width: 130px !important;"></select>
+			    <input type="text" id="conditionValue" value="@value" class="form-control" placeholder="Search&hellip;" style="display:inline-block;white-space:nowrap;width: 130px !important;">
+			    <button type="button" id="search" class="btn-light" style="display:inline-block;white-space:nowrap;">Search</button>
+			    <p></p>
+			    <button type="button" id="create" class="btn-success">Create</button>
 		    </div>
 	    </div>
 	</div>
@@ -69,18 +69,6 @@
 	}
 	</tbody>
 	</table>
-	<div class="clearfix">
-	<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-	<ul class="pagination">
-		<li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-		<li class="page-item"><a href="#" class="page-link">1</a></li>
-		<li class="page-item"><a href="#" class="page-link">2</a></li>
-		<li class="page-item active"><a href="#" class="page-link">3</a></li>
-		<li class="page-item"><a href="#" class="page-link">4</a></li>
-		<li class="page-item"><a href="#" class="page-link">5</a></li>
-		<li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-	</ul>
-	</div>
 }
 
 <script>
@@ -91,9 +79,6 @@ $(function () {
 	$("#update").click(function (){
 		window.location = "@Url.Action("Edit")?id=" + $(this).val()
 	})
-	// $("#delete").click(function (){
-	// 	window.location = "@Url.Action("Delete")?id=" + $(this).val()
-	// })
 	$("#delete").click(function (){
 		var doDelete = confirm("是否確定刪除?")
 		if (doDelete === false) return;
@@ -113,5 +98,11 @@ $(function () {
 			}
 		});
 	});
+	$("#search").click(function (){
+		var conditionName = $("#condition").children("option").filter(":selected").val();
+		var conditionValue = $("#conditionValue").val();
+		window.location = "@Url.Action("Index")?" + conditionName + "=" + conditionValue;
+		
+	})
 })
 </script>

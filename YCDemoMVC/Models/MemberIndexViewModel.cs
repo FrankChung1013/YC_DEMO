@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace YCDemoMVC.Models;
 
@@ -8,7 +9,35 @@ public class MemberIndexViewModel
     public string IdentityNumberCondition { get; set; }
     public string EmailCondition { get; set; }
     public string PhoneNumberCondition { get; set; }
+    public List<SelectListItem> ConditionList { get; set; }
     public List<MemberModel> Members { get; set; } = new List<MemberModel>();
+
+    public MemberIndexViewModel()
+    {
+        this.ConditionList = new List<SelectListItem>
+        {
+            new SelectListItem
+            {
+                Text = "Name",
+                Value = "NameCondition"
+            },
+            new SelectListItem
+            {
+                Text = "IdentityNumber",
+                Value = "IdentityNumberCondition"
+            },
+            new SelectListItem
+            {
+                Text = "Email",
+                Value = "EmailCondition"
+            },
+            new SelectListItem
+            {
+                Text = "PhoneNumber",
+                Value = "PhoneNumberCondition"
+            },
+        };
+    }
 }
 
 public class MemberModel

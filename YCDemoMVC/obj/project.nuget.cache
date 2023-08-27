@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NkaCrl7ohze2Zq8eLP+86OaPvn03pwdzYIBsFNyko/WWKaBGYj/GXK4clrY0pmGoEGXquWTzKZLIVyBe+4u6hA==",
+  "dgSpecHash": "HMYvLG+rmF5eLTwf90k7IMMSFKXlBc8aCdS/KmUzyTCDDRC8IDxgnf08z8l+63VM0jhyyhUia6Y6bxKeWjgX+g==",
   "success": true,
   "projectFilePath": "D:\\VS\\interview_project\\YCDemoMVC\\YCDemoMVC\\YCDemoMVC.csproj",
   "expectedPackageFiles": [
@@ -35,6 +35,9 @@
     "C:\\Users\\d1014\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\d1014\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\d1014\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\d1014\\.nuget\\packages\\nlog\\5.2.3\\nlog.5.2.3.nupkg.sha512",
+    "C:\\Users\\d1014\\.nuget\\packages\\nlog.extensions.logging\\5.3.3\\nlog.extensions.logging.5.3.3.nupkg.sha512",
+    "C:\\Users\\d1014\\.nuget\\packages\\nlog.web.aspnetcore\\5.3.3\\nlog.web.aspnetcore.5.3.3.nupkg.sha512",
     "C:\\Users\\d1014\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\d1014\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\d1014\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",

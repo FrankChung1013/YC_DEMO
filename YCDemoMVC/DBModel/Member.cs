@@ -13,5 +13,7 @@ namespace YCDemoMVC.DBModel
         public string Email { get; set; } = null!;
         public string PhoneNumber { get; set; } = null!;
         public string Address { get; set; } = null!;
+        public DateTime? CreateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }
